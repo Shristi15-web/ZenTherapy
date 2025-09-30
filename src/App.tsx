@@ -5,6 +5,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 import { initializeData } from "@/lib/storage";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import SimulatedChatbot from "@/components/SimulatedChatbot";
+import BlogSection from "@/components/BlogSection";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
 import AdminPortal from "./pages/AdminPortal";
@@ -27,25 +30,29 @@ const App = () => {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/demo" element={<Demo />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/admin" element={<AdminPortal />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/practitioner" element={<PractitionerView />} />
-            <Route path="/schedule" element={<Schedule />} />
-            <Route path="/progress" element={<Progress />} />
-            <Route path="/feedback" element={<Feedback />} />
-            <Route path="/patients" element={<PatientManagement />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
+      <ThemeProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/demo" element={<Demo />} />
+              <Route path="/blog" element={<BlogSection />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/admin" element={<AdminPortal />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/practitioner" element={<PractitionerView />} />
+              <Route path="/schedule" element={<Schedule />} />
+              <Route path="/progress" element={<Progress />} />
+              <Route path="/feedback" element={<Feedback />} />
+              <Route path="/patients" element={<PatientManagement />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+            <SimulatedChatbot />
+          </BrowserRouter>
+        </TooltipProvider>
+      </ThemeProvider>
     </QueryClientProvider>
   );
 };
