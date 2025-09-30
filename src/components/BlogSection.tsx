@@ -283,8 +283,8 @@ const BlogSection = () => {
             </SelectTrigger>
             <SelectContent>
               {blogCategories.map((category) => (
-                <SelectItem key={category} value={category}>
-                  {category}
+                <SelectItem key={category.id} value={category.name}>
+                  {category.name}
                 </SelectItem>
               ))}
             </SelectContent>

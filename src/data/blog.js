@@ -490,3 +490,70 @@ export const getRecentBlogs = (limit = 5) => {
     .sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate))
     .slice(0, limit);
 };
+
+// Additional helper functions for BlogSection component
+export const wellnessTips = [
+  {
+    id: 'tip_1',
+    title: 'Morning Hydration Ritual',
+    content: 'Start your day with warm water and fresh lemon juice to kickstart digestion and support natural detoxification.',
+    category: 'Daily Practices',
+    difficulty: 'Beginner',
+    timeRequired: '2 minutes'
+  },
+  {
+    id: 'tip_2',
+    title: 'Tongue Scraping Benefits',
+    content: 'Use a copper or stainless steel tongue scraper each morning to remove toxins, improve taste, and support oral hygiene.',
+    category: 'Oral Health',
+    difficulty: 'Beginner',
+    timeRequired: '1 minute'
+  },
+  {
+    id: 'tip_3',
+    title: 'Mindful Eating Practice',
+    content: 'Eat in silence for the first few bites of each meal, focusing on taste, texture, and gratitude for nourishment.',
+    category: 'Nutrition',
+    difficulty: 'Intermediate',
+    timeRequired: '5 minutes'
+  }
+];
+
+/**
+ * Helper function to get featured articles (alias for getFeaturedBlogs)
+ * @param {number} limit - Maximum number of articles to return
+ * @returns {array} - Array of featured articles
+ */
+export const getFeaturedArticles = (limit = 3) => {
+  return blogArticles
+    .filter((article) => article.featured)
+    .sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate))
+    .slice(0, limit);
+};
+
+/**
+ * Helper function to get articles by category (alias for getBlogsByCategory)
+ * @param {string} category - The category to filter by
+ * @returns {array} - Array of filtered articles
+ */
+export const getArticlesByCategory = (category) => {
+  if (category === 'All Articles' || category === 'all') return blogArticles;
+  return blogArticles.filter(
+    (article) => article.category.toLowerCase() === category.toLowerCase()
+  );
+};
+
+/**
+ * Helper function to search articles
+ * @param {string} searchTerm - The search term
+ * @returns {array} - Array of matching articles
+ */
+export const searchArticles = (searchTerm) => {
+  const term = searchTerm.toLowerCase();
+  return blogArticles.filter(article =>
+    article.title.toLowerCase().includes(term) ||
+    article.excerpt.toLowerCase().includes(term) ||
+    article.tags.some(tag => tag.toLowerCase().includes(term)) ||
+    article.category.toLowerCase().includes(term)
+  );
+};
